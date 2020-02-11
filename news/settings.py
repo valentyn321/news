@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'ckeditor', 
+    'users',
+    'crispy_forms', 
+    'posts',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = 'login'
+
+
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+SENDGRID_API_KEY = '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'
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+CKEDITOR_BASEPATH = '/static/ckeditor/'
