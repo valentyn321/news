@@ -7,28 +7,31 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
+from .tasks import sleepy
 
 
 def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Акаунт успішно створено! Будь ласка, перевірте Вашу пошту, та перейдіть за посиланням, для того, щоб підтвердити її.')
-            subject = f"Підтвердіть свій email на FreshNews"
-            message = "Перейдіть за посиланням та Підтвердіть свій email"
-            sender = "valentyncherkasov24@gmail.com"
-            recipients = [form.cleaned_data.get('email')]
-            try:
-                send_mail(subject, message, sender, recipients, fail_silently=True)
-            except BadHeaderError:
-                return HttpResponse('Dont work!')
-            return redirect('login')
-    else:
-        form = UserRegisterForm()
+    sleepy(15)
+    return HttpResponse("It works!")
+    # if request.method == 'POST':
+    #     form = UserRegisterForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         username = form.cleaned_data.get('username')
+    #         messages.success(request, f'Акаунт успішно створено! Будь ласка, перевірте Вашу пошту, та перейдіть за посиланням, для того, щоб підтвердити її.')
+    #         subject = f"Підтвердіть свій email на FreshNews"
+    #         message = "Перейдіть за посиланням та Підтвердіть свій email"
+    #         sender = "valentyncherkasov24@gmail.com"
+    #         recipients = [form.cleaned_data.get('email')]
+    #         try:
+    #             send_mail(subject, message, sender, recipients, fail_silently=True)
+    #         except BadHeaderError:
+    #             return HttpResponse('Dont work!')
+    #         return redirect('login')
+    # else:
+    #     form = UserRegisterForm()
 
-    return render(request, 'users/register.html', {'form': form})
+    # return render(request, 'users/register.html', {'form': form})
     
 
 @login_required
