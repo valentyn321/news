@@ -135,7 +135,7 @@ EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 SENDGRID_API_KEY = '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'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
-CKEDITOR_BASEPATH = '/static/ckeditor/'
+CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 
 SELERY_BROKER_URL = 'redis://localhost:6379'
 

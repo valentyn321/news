@@ -2,10 +2,12 @@
 
 
 {% block content %}
-    <h2>Ти щойно вийшов зі свого обілікового запису!</h2>
-        <div>
-            <small>
-                <a href="{% url 'login' %}">Увійти знову</a>
-            </small>
-        </div>      
+<div class="container">
+    <div class="card">
+	  <div class="card-body">
+	    Ви тільки що вийшли із свого облікового запису. <a href="{% url 'login' %}">Увійти знову</a>
+	  </div>
+	</div>
+</div>
+
 {% endblock content %}

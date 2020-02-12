@@ -5,8 +5,9 @@ from ckeditor.fields import RichTextField
 class Post(models.Model):
     title = models.CharField(max_length=256, blank=False)
     text = RichTextField(blank=True, null=True)
-    created_date = models.DateTimeField(default=timezone.now)
+    author = models.CharField(max_length=256, blank=True)
     published_date = models.DateTimeField(blank=True, null=True)
+    pre_moderation = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
