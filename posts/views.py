@@ -4,7 +4,10 @@ from main.models import Post
 from main.forms import PostForm
 from django.utils import timezone
 from .decorators import unauth_user, allowed_groups
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 @allowed_groups(disallowed_roles=['user'])
 def post_creation(request):
     if request.method == "POST":
@@ -20,7 +23,7 @@ def post_creation(request):
         form = PostForm()
     return render(request, 'posts/post_creation.html', {'form': form})
 
-
+@login_required
 def post_moderation(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -37,3 +40,13 @@ def post_moderation(request):
 
 
 
+# @login_required
+# def leave_comment(request, post_id):
+#     try: 
+#         post_detail = Post.objects.get(id=post_id)
+#     except:
+#         raise Http404("Стаття не знайдена!")
+
+#     post_detail.comment_set.create(author=request.POST['name'], text=request.POST['text'])
+
+#     return

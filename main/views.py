@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from users.tasks import send_mail
+from django.template.loader import render_to_string
 
 
 @login_required
@@ -17,6 +18,7 @@ def news_list(request):
 @login_required
 def post_detail(request, post_id):
     post_detail = Post.objects.get(id=post_id)
+    comment_list = post_detail.comment_set.order_by('-id')
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -25,18 +27,13 @@ def post_detail(request, post_id):
             comment.author = request.user
             comment.save()
             subject = f"Вашу новину хтось прокоментував на FreshNews"
-            message = render_to_string('users/comment.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':account_activation_token.make_token(user),
-            })
+            message = render_to_string('users/comment.html')
             sender = "here_will_be@sender.com"
             recipients = [form.cleaned_data.get('email')]
             send_mail(subject, message, sender, recipients, fail_silently=True)
             return redirect("/")
     else:
-        form = CommentForm(request.POST)
-    return render(request, "posts/post_detail.html", {'form': form, 'post_detail': post_detail})
+        form = CommentForm()
+    return render(request, "posts/post_detail.html", {'form': form, 'post_detail': post_detail, 'comment_list': comment_list})
 
 

@@ -3,12 +3,20 @@
 {% load static %}
 
 {% block content %}
-{% for post in posts %}
-    <div class="card border-primary mb-3">      
-     <div class="card-header"><h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1></div>
-      <div class="card-body">
-          <footer class="text-muted" ><cite title="Source Title">- {{ post.author }}</cite></footer>    
-      </div>
+{% if posts %}
+    {% for post in posts %}
+        <div class="card border-primary mb-3">      
+         <div class="card-header"><h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1>
+          <h3>{{ post.published_date }}</h3>
+         </div>
+          <div class="card-body">
+              <footer class="text-muted" ><cite title="Source Title">- {{ post.author }}</cite></footer>    
+          </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="text-center">
+    <h2 class="font-italic text-muted">Новин ще поки що немає, але Ви можете створити першу :)</h2>
     </div>
-{% endfor %}
+{% endif %}
 {% endblock content %}

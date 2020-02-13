@@ -36,6 +36,7 @@ urlpatterns = [
     path('post_creation/', posts_views.post_creation, name='post_creation'),
     path('post_moderation/', posts_views.post_moderation, name='post_moderation'),
     path('post/<int:post_id>/', main_views.post_detail, name="post_detail"),
+    # path('post/<int:post_id>/leave_comment', posts_views.leave_comment, name="leave_comment"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', users_views.activate, name='activate'),
 ]
 

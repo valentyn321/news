@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk-ua'
 
 TIME_ZONE = 'UTC'
 
@@ -136,14 +136,19 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
 
-
+# sendgrid
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = 'here_will_be_your_key'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
+#celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+#skeditor
 CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
-
-SELERY_BROKER_URL = 'redis://localhost:6379'
-
-SELERY_ACCEPT_CONTENT = ['json']
-SELERY_TASK_SERIALIZER = 'json'
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_RESTRICT_BY_USER= True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_STORAGE_BACKEND = '/media/'

@@ -12,16 +12,26 @@
             <p class="text-center">{{ post_detail.text | safe }}</p>
         </div>
         <hr>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-outline-success mt-4">Готово</button>          
-        </form>    
+        <div class="container">
+            <h3 class="font-weight-bolder">Додавання коментаря</h6>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-outline-success mt-4">Готово</button>  
+            </form>
+        </div>
+        <div class="container">
+            {% if comment_list %}
+                {% for comment in comment_list %}
+                    <h4 class="font-weight-bold mt-3">{{ comment.author}}</h3>
+                    <p>{{ comment.text }}</p>
+                {% endfor %}
+            {% else %}
+            <h2 class="font-italic text-center text-muted mt-4">Коментарів ще поки що немає, але Ви можете написати перший :)</h2>
+            {% endif %}
+        </div>
+
             
     </div>
 {% endblock content %}
 
-{% block scripts %}
-    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-{% endblock scripts %}
