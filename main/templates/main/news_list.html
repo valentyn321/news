@@ -4,14 +4,11 @@
 
 {% block content %}
 {% for post in posts %}
-	<div class="card border-primary mb-3">		
-	 <div class="card-header"><h1><a href="#">{{ post.title }}</a></h1></div>
-	  <div class="card-body">
-	    <blockquote class="blockquote mb-0">
-	      <p>{{ post.text | safe }}</p>
-	      <footer class="text-muted" ><cite title="Source Title">- {{ post.author }}</cite></footer>
-	    </blockquote>
-	  </div>
-	</div>
+    <div class="card border-primary mb-3">      
+     <div class="card-header"><h1><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h1></div>
+      <div class="card-body">
+          <footer class="text-muted" ><cite title="Source Title">- {{ post.author }}</cite></footer>    
+      </div>
+    </div>
 {% endfor %}
 {% endblock content %}

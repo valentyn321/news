@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div>
+            <h3 class="text-center font-weight-bold">{{ post_detail.title }}</h3>
+            <h6 class="text-center font-italic">{{ post_detail.published_date }}</h6>
+            <p class="text-center">{{ post_detail.text | safe }}</p>
+        </div>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-outline-success mt-4">Готово</button>          
+        </form>    
+            
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock scripts %}

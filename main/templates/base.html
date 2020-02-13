@@ -2,70 +2,65 @@
 
 <!DOCTYPE html>
 <html lang=”uk”>
-    <head>
-        <meta charset="utf-8">
-        <title>Новини{% block addition_title %}{% endblock addition_title %}</title>
-        <!-- Include Styles -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="../static/css/main.css">
 
-        {% block addition_css %}{% endblock addition_css %}
+<head>
+    <meta charset="utf-8">
+    <title>Новини{% block addition_title %}{% endblock addition_title %}</title>
+    <!-- Include Styles -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css"> {% block addition_css %}{% endblock addition_css %}
 
-    </head>
-    <body>
-        <!-- Header -->
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="{% url 'news_list' %}"><strong>Fresh</strong>News</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+</head>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'news_list' %}"><strong>Fresh</strong>News</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'news_list' %}">Головна</a>
+                    <a class="nav-link" href="{% url 'news_list' %}">Головна</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'post_creation' %}">Додати новину</a>
+                    <a class="nav-link" href="{% url 'post_creation' %}">Додати новину</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'post_moderation' %}">Запропонувати новину</a>
+                    <a class="nav-link" href="{% url 'post_moderation' %}">Запропонувати новину</a>
                 </li>
-              </ul>
-            </div>
-                      <div class="navbar-nav">
-                        {% if user.is_authenticated %}
-                          <a class="nav-item nav-link" href="{% url 'profile' %}">Профіль</a> 
-                          <a class="nav-item nav-link" href="{% url 'logout' %}">Вийти</a>
+            </ul>
+        </div>
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Профіль</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Вийти</a> {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Увійти</a> {% endif %}
+        </div>
+    </nav>
 
-                        {% else %}
-                          <a class="nav-item nav-link" href="{% url 'login' %}">Увійти</a>
-                        {% endif %}
-                      </div>
-                  </nav>
+    <div class="container mt-4 mb-5">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %} {% endif %}
+    </div>
+    </nav>
 
-                  <div class="container mt-4 mb-5">
-                    {% if messages %}
-                      {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                      {% endfor %}
-                    {% endif %}
-            </div>
-          </nav>
+    <!-- End of Header -->
 
-        <!-- End of Header -->
-
-        <!-- Main Content -->
-        {% block content %}{% endblock content %}
-        <!-- End of Main Content -->
-
+    <!-- Main Content -->
+    {% block content %}{% endblock content %}
+    <!-- End of Main Content -->
 
     <!-- Include JS files -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-        {% block scripts %}{% endblock scripts %}
-    
-    </body>
+    {% block scripts %}{% endblock scripts %}
+
+</body>
+
 </html>

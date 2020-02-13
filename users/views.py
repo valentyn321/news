@@ -6,12 +6,12 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
-from .tasks import sleepy
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
+from .tasks import send_email_task
 
 
 def register(request):
@@ -31,10 +31,7 @@ def register(request):
             })
             sender = "valentyncherkasov24@gmail.com"
             recipients = [form.cleaned_data.get('email')]
-            try:
-                send_mail(subject, message, sender, recipients, fail_silently=True)
-            except BadHeaderError:
-                return HttpResponse('Error!')
+            send_email_task(subject, message, sender, recipients, fail_silently=True)
             return render(request, 'users/confirm_send.html', {})
     else:
         form = UserRegisterForm()

@@ -6,17 +6,17 @@
 
 {% block content %}
 <div class="container">
-	<h2 class="text-center font-weight-bold">Час творити!</h2>
-	<div class="col-lg-9">
-		<form method="POST">{% csrf_token %}	        
-				{{ form| crispy | safe }}
-	        <button type="submit" class="btn btn-outline-primary md-4">Готово</button>
-	    </form>
-	</div>
+    <h2 class="text-center font-weight-bold">Час творити!</h2>
+    <div class="col-lg-9">
+        <form method="POST">{% csrf_token %}            
+                {{ form| crispy | safe }}
+            <button type="submit" class="btn btn-outline-primary md-4">Готово</button>
+        </form>
+    </div>
 </div>
 {% endblock content %}
 
 {% block scripts %}
-	<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-	<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 {% endblock scripts %}
