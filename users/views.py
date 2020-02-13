@@ -12,6 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .tasks import send_email_task
+from django.contrib.auth.models import Group
 
 
 def register(request):
@@ -21,6 +22,8 @@ def register(request):
             user = form.save()
             user.is_active = False
             user.save()
+            group = Group.objects.get(name='user')
+            user.groups.add(group)
             current_site = get_current_site(request)
             subject = f"Підтвердіть свій email на FreshNews"
             message = render_to_string('users/confirm_email.html', {
@@ -29,7 +32,7 @@ def register(request):
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':account_activation_token.make_token(user),
             })
-            sender = "valentyncherkasov24@gmail.com"
+            sender = "here_will_be@sender.com"
             recipients = [form.cleaned_data.get('email')]
             send_email_task(subject, message, sender, recipients, fail_silently=True)
             return render(request, 'users/confirm_send.html', {})
